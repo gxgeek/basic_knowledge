@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 加载数据库属性文件 -->
+    <properties resource="db.properties">
+    </properties>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <package name="com.gxgeek"/>
+        <package name="com.gxgeek.plugin"/>
+    </typeAliases>
+<!--    <plugins>-->
+<!--        <plugin interceptor="demoplugin"></plugin>-->
+<!--    </plugins>-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="MybatisDruidDataSourceFactory">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis"/>
+                <property name="username" value="root"/>
+                <property name="asda1" value="${asda1}"/>
+                <property name="asda" value="${asda}"/>
+
+
+            </dataSource>
+        </environment>
+    </environments>
+    <databaseIdProvider type="DB_VENDOR">
+
+    </databaseIdProvider>
+    <mappers>
+        <mapper resource="BlogMapper.xml" />
+    </mappers>
+</configuration>

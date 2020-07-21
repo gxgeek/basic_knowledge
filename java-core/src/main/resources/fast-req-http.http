@@ -1,0 +1,9 @@
+POST https://m-test-seller.clubfactory.com/gw/cf-member/seller/deviceInfo/update
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+###

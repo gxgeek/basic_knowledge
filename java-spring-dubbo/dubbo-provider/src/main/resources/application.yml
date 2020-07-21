@@ -1,0 +1,11 @@
+dubbo:
+  application:
+    name: boot-simple-provider
+  registry:
+    address: zookeeper://127.0.0.1:2181
+server:
+  port: 8082
+spring:
+  application:
+    name: boot-simple-provider
+

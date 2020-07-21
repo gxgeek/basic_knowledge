@@ -1,0 +1,10 @@
+dubbo:
+  application:
+    name: boot-simple-consumter
+  registry:
+    address: zookeeper://127.0.0.1:2181
+server:
+  port: 8081
+spring:
+  application:
+    name: boot-simple-consumter
