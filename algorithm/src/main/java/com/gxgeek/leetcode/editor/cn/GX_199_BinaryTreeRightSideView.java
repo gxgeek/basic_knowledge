@@ -56,38 +56,57 @@ public class GX_199_BinaryTreeRightSideView{
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-
-        List<Integer> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         if (root == null){
-            return list;
+            return res;
         }
         LinkedList<TreeNode> linkedList = new LinkedList<>();
-        linkedList.add(root);
+        linkedList.addLast(root);
         while (!linkedList.isEmpty()){
             int size = linkedList.size();
             for (int i = 0; i < size; i++) {
                 TreeNode treeNode = linkedList.pollFirst();
-                if (treeNode.left != null){
-                    linkedList.addLast(treeNode.left);
-                }
-                if (treeNode.right != null){
+                if (treeNode.right!=null){
                     linkedList.addLast(treeNode.right);
                 }
-                if (i + 1 == size) {
-                    list.add(treeNode.val);
-
+                if (treeNode.left!=null){
+                    linkedList.addLast(treeNode.left);
+                }
+                if (i == 0){
+                    res.add(treeNode.val);
                 }
             }
+
         }
-        return list;
+        return res;
     }
+//    public List<Integer> rightSideView(TreeNode root) {
+//
+//        List<Integer> list = new ArrayList<>();
+//        if (root == null){
+//            return list;
+//        }
+//        LinkedList<TreeNode> linkedList = new LinkedList<>();
+//        linkedList.add(root);
+//        while (!linkedList.isEmpty()){
+//            int size = linkedList.size();
+//            for (int i = 0; i < size; i++) {
+//                TreeNode treeNode = linkedList.pollFirst();
+//                if (treeNode.left != null){
+//                    linkedList.addLast(treeNode.left);
+//                }
+//                if (treeNode.right != null){
+//                    linkedList.addLast(treeNode.right);
+//                }
+//                if (i + 1 == size) {
+//                    list.add(treeNode.val);
+//
+//                }
+//            }
+//        }
+//        return list;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
- public class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode(int x) { val = x; }
- }
 
 }

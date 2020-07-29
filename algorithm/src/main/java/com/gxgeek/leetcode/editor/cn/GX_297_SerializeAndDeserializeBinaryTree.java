@@ -81,27 +81,11 @@ public  class Codec {
     private  String spliter = ",";
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-//        List<Integer> list = new ArrayList<>();
-//        if (root == null){
-//            return "[]";
-//        }
         StringBuilder sb = new StringBuilder();
 
         doSerialize(root,sb);
         return sb.toString();
-//        if(list.isEmpty()){
-//            return "[]";
-//        }
-//        StringBuilder sb = new StringBuilder("[");
-//        for (int i = 0; i < list.size(); i++) {
-//            sb.append(list.get(i));
-//            if (i +1 != list.size()){
-//                sb.append(",");
-//            }
-//        }
-//
-//        sb.append("]");
-//        return sb.toString();
+
     }
     void doSerialize(TreeNode root,StringBuilder sb){
         if(root == null){
@@ -116,18 +100,9 @@ public  class Codec {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-//        if(data.length() == 0 || data.length() == 2){
-//            return null;
-//        }
-//        data =data.replaceFirst("\\[", "");
-//        data = data.replaceFirst("\\]", "");
-        LinkedList<String> linkedList = new LinkedList<>(Arrays.asList(data.split(spliter)));
 
-//        Integer integer = linkedList.pollFirst();
-//        TreeNode root = new TreeNode(integer);
-//        TreeNode current = root;
+        LinkedList<String> linkedList = new LinkedList<>(Arrays.asList(data.split(spliter)));
         return doDeserialize( linkedList);
-//        return  root;
     }
 
     private TreeNode doDeserialize( LinkedList<String> linkedList) {
@@ -135,26 +110,13 @@ public  class Codec {
         if (s.equals(NULL)){
             return null;
         }
-//        if (linkedList.isEmpty()){
-//            return;
-//        }
+
 
         TreeNode root = new TreeNode(Integer.valueOf(s));
         root.left = doDeserialize(linkedList);
         root.right = doDeserialize(linkedList);
         return root;
-//        Integer left = s;
-//        if (left != null){
-//            TreeNode leftNode = new TreeNode(left);
-//            current.left = leftNode;
-//            doDeserialize(current.left, linkedList);
-//        }
-//        Integer right = s;
-//        if (right != null){
-//            TreeNode rightNode = new TreeNode(right);
-//            current.right = rightNode;
-//            doDeserialize(current.right, linkedList);
-//        }
+
     }
 }
 

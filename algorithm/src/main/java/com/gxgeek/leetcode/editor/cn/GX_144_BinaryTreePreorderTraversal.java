@@ -57,25 +57,35 @@ public class GX_144_BinaryTreePreorderTraversal{
  * }
  */
 class Solution {
+    List<Integer> list = new ArrayList<>();
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-
-        if (root == null) return list;
-        LinkedList<TreeNode> treeNodeLinkedList = new LinkedList<>();
-        treeNodeLinkedList.add(root);
-        while (!treeNodeLinkedList.isEmpty()){
-            TreeNode treeNode = treeNodeLinkedList.pollLast();
-            list.add(treeNode.val);
-            if (treeNode.right != null){
-                treeNodeLinkedList.addLast(treeNode.right);
-            }
-            if (treeNode.left != null){
-                treeNodeLinkedList.addLast(treeNode.left);
-            }
-
+        List<Integer> res = new ArrayList<>();
+        if (root == null){
+            return res;
         }
-        return list;
 
+        LinkedList<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+        while (!deque.isEmpty()){
+            TreeNode treeNode = deque.pollLast();
+            res.add(treeNode.val);
+            if (treeNode.right!=null){
+                deque.addLast(treeNode.right);
+            }
+            if (treeNode.left!=null){
+                deque.addLast(treeNode.left);
+            }
+        }
+        return res;
+    }
+
+    private void dfs(TreeNode root) {
+        if (root == null){
+            return;
+        }
+        list.add(root.val);
+        dfs(root.left);
+        dfs(root.right);
     }
 //    public List<Integer> preorderTraversal(TreeNode root) {
 //

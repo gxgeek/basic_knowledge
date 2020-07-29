@@ -38,6 +38,7 @@ public class GX_47_PermutationsIi{
     public static void main(String[] args) {
         Solution solution = new GX_47_PermutationsIi().new Solution();
         // TO TEST
+        solution.permuteUnique(new int[]{1, 1, 2});
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
@@ -62,10 +63,8 @@ class Solution {
                 if(use[i] == true){
                     continue;
                 }
-                if(i >0 && nums[i] == nums[i-1]
-//                                        ){
-                        && !use[i-1]){
-                    continue;
+                if(i >0 && nums[i] == nums[i-1] && use[i-1]){
+                    break;
                 }
                 int indexValue = nums[i];
                 stack.push(indexValue);

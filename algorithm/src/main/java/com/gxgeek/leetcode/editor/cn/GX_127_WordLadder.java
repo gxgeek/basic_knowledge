@@ -129,19 +129,14 @@ class Solution {
                 }
                 for (int i1 = 0; i1 < originStr.length(); i1++) {
                     char[] chars = originStr.toCharArray();
-//                    char originC = originStr.charAt(i1);
                     for (Character character : changeSet) {
                         chars[i1] = character;
                         String newStr = new String(chars);
-//                        if (newStr.equals(endWord)){
-//                            return ++count;
-//                        }
                         if (baseSet.contains(newStr) && !visitSet.contains(newStr)){
                             visitSet.add(newStr);
                             linkedList.addLast(newStr);
                         }
                     }
-//                    chars[i1] = originC;
                 }
             }
             count++;

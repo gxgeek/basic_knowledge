@@ -65,22 +65,25 @@ public class GX_120_Triangle{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
-        int[][] tres = new int[triangle.size() ][];
-        for (int i = triangle.size()-1; i >=0 ; i--) {
-            for (int j = triangle.get(i).size()-1 ; j >= 0; j--) {
-                if (tres[i] == null){
-                    tres[i] = new int[triangle.get(i).size()];
+
+        int[][]dp = new int[triangle.size()][];
+        for (int i=0;i<triangle.size();i++){
+            for (int j=0;j<triangle.get(i).size();j++){
+                if(dp[i] == null){
+                    dp[i] = new int[triangle.get(i).size()];
                 }
-                tres[i][j] = triangle.get(i).get(j);
+                dp[i][j] = triangle.get(i).get(j);
             }
         }
 
-        for (int i = tres.length-2; i >=0; i--) {
-            for (int j = tres[i].length-1; j >=0; j--) {
-                tres[i][j] = Math.min(tres[i + 1][j], tres[i + 1][j + 1]) + tres[i][j];
+
+        for(int i = dp.length-2;i>=0;i--){
+            for (int j=dp[i].length-1;j>=0;j--){
+                dp[i][j] = Math.min(dp[i+1][j],dp[i+1][j+1])+dp[i][j];
             }
         }
-        return tres[0][0];
+        return dp[0][0];
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

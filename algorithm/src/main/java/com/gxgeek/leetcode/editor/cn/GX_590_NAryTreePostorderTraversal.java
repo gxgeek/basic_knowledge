@@ -48,61 +48,44 @@ public class GX_590_NAryTreePostorderTraversal{
         node.children = objects;
         solution.postorder(node);
     }
-    //leetcode submit region begin(Prohibit modification and deletion)
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    public List<Node> children;
-
-    public Node() {}
-
-    public Node(int _val) {
-        val = _val;
-    }
-
-    public Node(int _val, List<Node> _children) {
-        val = _val;
-        children = _children;
-    }
-};
-*/
-
-    static class Node {
-        public int val;
-        public List<Node> children;
-
-        public Node() {}
-
-        public Node(int _val) {
-            val = _val;
-        }
-
-        public Node(int _val, List<Node> _children) {
-            val = _val;
-            children = _children;
-        }
-    };
 class Solution {
     public List<Integer> postorder(Node root) {
-        LinkedList<Integer> list = new LinkedList<>();
+        LinkedList<Integer> res = new LinkedList<>();
         if (root == null){
-            return list;
+            return res;
         }
-        LinkedList<Node> linkedList = new LinkedList<>();
-        linkedList.add(root);
-        while (!linkedList.isEmpty()){
-            Node node = linkedList.pollLast();
-            list.addFirst(node.val);
-            if (node.children != null){
-//                Collections.reverse(node.children);
-                for(Node cnode : node.children){
-                    linkedList.addLast(cnode);
-                }
+
+        LinkedList<Node> nodeList = new LinkedList<>();
+        nodeList.add(root);
+        while (!nodeList.isEmpty()){
+            Node node = nodeList.pollLast();
+            res.addFirst(node.val);
+            if (node.children!=null){
+                nodeList.addAll(node.children);
             }
         }
-        return list;
+        return res;
+
     }
+//    public List<Integer> postorder(Node root) {
+//        LinkedList<Integer> list = new LinkedList<>();
+//        if (root == null){
+//            return list;
+//        }
+//        LinkedList<Node> linkedList = new LinkedList<>();
+//        linkedList.add(root);
+//        while (!linkedList.isEmpty()){
+//            Node node = linkedList.pollLast();
+//            list.addFirst(node.val);
+//            if (node.children != null){
+////                Collections.reverse(node.children);
+//                for(Node cnode : node.children){
+//                    linkedList.addLast(cnode);
+//                }
+//            }
+//        }
+//        return list;
+//    }
 //    public List<Integer> postorder(Node root) {
 //        List<Integer> list = new ArrayList<>();
 //        Stack<Node> stack = new Stack<>();

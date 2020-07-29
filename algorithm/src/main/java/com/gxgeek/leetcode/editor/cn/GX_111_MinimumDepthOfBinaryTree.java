@@ -47,7 +47,7 @@ public class GX_111_MinimumDepthOfBinaryTree{
     public static void main(String[] args) {
         Solution solution = new GX_111_MinimumDepthOfBinaryTree().new Solution();
         // TO TEST
-        TreeNode treeNode = new TreeNode(1);
+        TreeNode treeNode = new TreeNode(3);
         treeNode.left = new TreeNode(2);
         treeNode.right = new TreeNode(3);
         treeNode.right.left = new TreeNode(5);
@@ -65,55 +65,35 @@ public class GX_111_MinimumDepthOfBinaryTree{
  */
 class Solution {
     public int minDepth(TreeNode root) {
-        if (root == null)return 0;
-        LinkedList<TreeNode> linkedList = new LinkedList<>();
-        int minDepth = 1;
-        linkedList.add(root);
-        while (!linkedList.isEmpty()) {
-            int size = linkedList.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode treeNode = linkedList.pollFirst();
-                if (treeNode.left ==null && treeNode.right == null){
-                    return minDepth;
-                }
-
-                if (treeNode.left != null){
-                    linkedList.addLast(treeNode.left);
-                }
-
-                if (treeNode.right != null){
-                    linkedList.addLast(treeNode.right);
-                }
-            }
-            minDepth++;
+        if (root == null){
+            return 0;
         }
-        return minDepth;
-//        if (root==null) return 0;
-//        if (root.left  ==null && root.right ==null){
-//            return 1;
-//        }
-//        int i = minDepth(root.left);
-//        int i1 = minDepth(root.right);
-//        if (root.right == n)
-//        return Math.min(i, i1) + 1;
-//        int i = doMin(root);
-//        return i == -1?0:i;
+        return dfs(root, 0);
+    }
+    int dfs(TreeNode root,int len){
+        if (root != null){
+            len++;
+        }
+        if (root.left == null && root.right == null){
+            return len;
+        }
+
+        Integer rigthLength = null;
+        Integer leftLength = null;
+        if (root.right != null){
+            rigthLength = dfs(root.right, len);
+        }
+        if (root.left != null){
+            leftLength = dfs(root.left, len);
+        }
+        if (rigthLength == null && leftLength !=null){
+            return leftLength;
+        }else if(rigthLength != null && leftLength ==null){
+            return rigthLength;
+        }
+        return Math.min(rigthLength, leftLength);
     }
 
-    private int doMin(TreeNode root) {
-        if(root == null){
-            return -1;
-        }
-        int i = minDepth(root.left);
-        if (i == -1){
-            return -1;
-        }
-        int i1 = minDepth(root.right);
-        if (i1 == -1){
-            return -1;
-        }
-        return Math.min(i,i1)+1;
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 public static class TreeNode {

@@ -35,7 +35,6 @@ package com.gxgeek.leetcode.editor.cn;
 // Related Topics 栈 树 哈希表 
 // 👍 573 👎 0
 
-import javax.swing.tree.TreeNode;
 import java.util.*;
 
 public class GX_94_BinaryTreeInorderTraversal {
@@ -59,37 +58,71 @@ public class GX_94_BinaryTreeInorderTraversal {
      * }
      */
     class Solution {
+        LinkedList<Integer> res = new LinkedList<>();
+
         public List<Integer> inorderTraversal(TreeNode root) {
-            LinkedList<TreeNode> list = new LinkedList<>();
-            List<Integer> result = new ArrayList<>();
-            if(root == null){
-                return result;
+//            dfs(root);
+//            return res;
+            if (root == null){
+                return res;
             }
 
-            while(root != null || !list.isEmpty()){
-                while(root != null){
-                    list.addLast(root.left);
+            LinkedList<TreeNode> nodeList = new LinkedList<>();
+
+            while (root != null || !nodeList.isEmpty()){
+                while (root != null){
+                    nodeList.addLast(root);
                     root = root.left;
                 }
-                TreeNode node  = list.pollLast();
-//                result.addLast(node.val);
-                root = node.right;
+                TreeNode treeNode = nodeList.pollLast();
+                res.addLast(treeNode.val);
+                root = treeNode.right;
             }
-            return result;
-
-
-
+            return res;
         }
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
+        void  dfs(TreeNode root){
+            if (root == null){
+                return;
+            }
+            dfs(root.left);
+            res.addLast(root.val);
+            dfs(root.right);
         }
+//        public List<Integer> inorderTraversal(TreeNode root) {
+//            LinkedList<Integer> res = new LinkedList<>();
+//            LinkedList<TreeNode> nodeList = new LinkedList<>();
+//            nodeList.add(root);
+//            while (!nodeList.isEmpty()){
+//                TreeNode treeNode = nodeList.pollFirst();
+//                if (treeNode.left != null){
+//                    nodeList.addLast(treeNode.left);
+//                }
+//                if (treeNode.right != null){
+//                    nodeList.addLast(treeNode.right);
+//                }
+//            }
+//        }
+//        public List<Integer> inorderTraversal(TreeNode root) {
+//            LinkedList<TreeNode> list = new LinkedList<>();
+//            List<Integer> result = new ArrayList<>();
+//            if(root == null){
+//                return result;
+//            }
+//
+//            while(root != null || !list.isEmpty()){
+//                while(root != null){
+//                    list.addLast(root.left);
+//                    root = root.left;
+//                }
+//                TreeNode node  = list.pollLast();
+////                result.addLast(node.val);
+//                root = node.right;
+//            }
+//            return result;
+//
+//
+//
+//        }
     }
 
 //leetcode submit region end(Prohibit modification and deletion)

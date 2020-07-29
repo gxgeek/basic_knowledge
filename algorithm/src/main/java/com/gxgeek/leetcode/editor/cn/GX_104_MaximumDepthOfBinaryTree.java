@@ -57,45 +57,22 @@ public class GX_104_MaximumDepthOfBinaryTree{
  * }
  */
 class Solution {
+    int max = 0;
     public int maxDepth(TreeNode root) {
-
-        LinkedList<TreeNode> linkedList = new LinkedList();
-        if (root == null)return 0;
-        int maxDepth = 0;
-
-        linkedList.addLast(root);
-        while (!linkedList.isEmpty()){
-            int size = linkedList.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode treeNode = linkedList.pollFirst();
-                if (treeNode.left != null){
-                    linkedList.addLast(treeNode.left);
-                }
-                if (treeNode.right != null){
-                    linkedList.addLast(treeNode.right);
-                }
-                if (i+1==size){
-                    maxDepth++;
-                }
-            }
-
+        if(root == null){
+            return 0;
         }
-        return maxDepth;
+        return dfs(root, 0);
     }
-//
-//    public int maxDepth(TreeNode root) {
-//        if(root == null)return 0;
-//        int i = maxDepth(root.left);
-//        int i1 = maxDepth(root.right);
-//        return Math.max(i,i1)+1;
-//    }
+    int dfs(TreeNode root,int len){
+        if (root == null){
+            return len;
+        }
+        int maxLeft = dfs(root.left,len+1);
+        int maxRigth = dfs(root.right,len+1);
+        return Math.max(maxLeft, maxRigth);
+    }
 }
- public class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode(int x) { val = x; }
- }
 
 //leetcode submit region end(Prohibit modification and deletion)
 

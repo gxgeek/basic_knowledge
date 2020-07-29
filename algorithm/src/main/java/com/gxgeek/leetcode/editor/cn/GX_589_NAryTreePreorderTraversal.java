@@ -35,10 +35,7 @@ package com.gxgeek.leetcode.editor.cn;
 // 说明: 递归法很简单，你可以使用迭代法完成此题吗? Related Topics 树 
 // 👍 87 👎 0
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GX_589_NAryTreePreorderTraversal{
     public static void main(String[] args) {
@@ -67,39 +64,51 @@ class Node {
 
 class Solution {
     public List<Integer> preorder(Node root) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         if (root == null){
-            return list;
+            return res;
         }
-        LinkedList<Node> linkedList = new LinkedList<>();
-        linkedList.add(root);
-        while (!linkedList.isEmpty()){
-            Node node = linkedList.pollLast();
-            list.add(node.val);
-            if (node.children != null){
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.add(root);
+        while (!nodes.isEmpty()){
+            Node node = nodes.pollLast();
+            res.add(node.val);
+            if (node.children!=null){
                 Collections.reverse(node.children);
-                linkedList.addAll(node.children);
+                nodes.addAll(node.children);
             }
         }
-        return list;
+        return res;
+
 
     }
+
+
+
+
+
+
+
+
+//    public List<Integer> preorder(Node root) {
+//        List<Integer> list = new ArrayList<>();
+//        if (root == null){
+//            return list;
+//        }
+//        LinkedList<Node> linkedList = new LinkedList<>();
+//        linkedList.add(root);
+//        while (!linkedList.isEmpty()){
+//            Node node = linkedList.pollLast();
+//            list.add(node.val);
+//            if (node.children != null){
+//                Collections.reverse(node.children);
+//                linkedList.addAll(node.children);
+//            }
+//        }
+//        return list;
+//
+//    }
 }
-    class Node {
-        public int val;
-        public List<Node> children;
-
-        public Node() {}
-
-        public Node(int _val) {
-            val = _val;
-        }
-
-        public Node(int _val, List<Node> _children) {
-            val = _val;
-            children = _children;
-        }
-    };
 
 //leetcode submit region end(Prohibit modification and deletion)
 

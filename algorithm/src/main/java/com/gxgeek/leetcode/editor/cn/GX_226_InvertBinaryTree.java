@@ -74,28 +74,43 @@ public class GX_226_InvertBinaryTree{
  */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if (root == null){
-            return root;
-        }
-        LinkedList<TreeNode> linkedList = new LinkedList<>();
-        linkedList.add(root);
-        while (!linkedList.isEmpty()){
-            int size = linkedList.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode treeNode = linkedList.pollFirst();
-                TreeNode temp = treeNode.right;
-                treeNode.right = treeNode.left;
-                treeNode.left = temp;
-                if (treeNode.left != null){
-                    linkedList.addLast(treeNode.left);
-                }
-                if (treeNode.right != null){
-                    linkedList.addLast(treeNode.right);
-                }
-            }
-        }
+        rever(root);
         return root;
     }
+
+    private void rever(TreeNode root) {
+        if (root == null){
+            return;
+        }
+        TreeNode right = root.right;
+        root.right = root.left;
+        root.left = right;
+        rever(root.left);
+        rever(root.right);
+    }
+//    public TreeNode invertTree(TreeNode root) {
+//        if (root == null){
+//            return root;
+//        }
+//        LinkedList<TreeNode> linkedList = new LinkedList<>();
+//        linkedList.add(root);
+//        while (!linkedList.isEmpty()){
+//            int size = linkedList.size();
+//            for (int i = 0; i < size; i++) {
+//                TreeNode treeNode = linkedList.pollFirst();
+//                TreeNode temp = treeNode.right;
+//                treeNode.right = treeNode.left;
+//                treeNode.left = temp;
+//                if (treeNode.left != null){
+//                    linkedList.addLast(treeNode.left);
+//                }
+//                if (treeNode.right != null){
+//                    linkedList.addLast(treeNode.right);
+//                }
+//            }
+//        }
+//        return root;
+//    }
 //    public TreeNode invertTree(TreeNode root) {
 //        doInvertTree(root);
 //        return root;

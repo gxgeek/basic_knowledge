@@ -88,66 +88,91 @@ public class GX_98_ValidateBinarySearchTree{
  * }
  */
 class Solution {
-    Long prevVal = Long.MIN_VALUE;
+    Long preVal = Long.MIN_VALUE;
+
     public boolean isValidBST(TreeNode root) {
-        if(root ==null){
+        if (root == null){
             return true;
         }
-        LinkedList<TreeNode> treeNodes = new LinkedList<>();
-        Long prevVal = Long.MIN_VALUE;
-        TreeNode current = root;
-        while (current != null || !treeNodes.isEmpty()){
-            while (current!=null){
-                treeNodes.addLast(current);
-                current = current.left;
-            }
-            current = treeNodes.pollLast();
-            if (current.val <= prevVal){
-                return false;
-            }
-            prevVal = Long.valueOf(current.val);
-            current = current.right;
+
+        boolean leftValidBST = isValidBST(root.left);
+        if (!leftValidBST) return false;
+        if(root.val <= preVal){
+            return false;
         }
-        return true;
+        preVal = Long.valueOf(root.val);
+        return isValidBST(root.right);
+    }
 
 
-//        Stack<TreeNode> stack = new Stack();
-//        double inorder = - Double.MAX_VALUE;
-//
-//        while (!stack.isEmpty() || root != null) {
-//            while (root != null) {
-//                stack.push(root);
-//                root = root.left;
+
+
+
+
+
+
+
+
+    //    Long prevVal = Long.MIN_VALUE;
+//    public boolean isValidBST(TreeNode root) {
+//        if(root ==null){
+//            return true;
+//        }
+//        LinkedList<TreeNode> treeNodes = new LinkedList<>();
+//        Long prevVal = Long.MIN_VALUE;
+//        TreeNode current = root;
+//        while (current != null || !treeNodes.isEmpty()){
+//            while (current!=null){
+//                treeNodes.addLast(current);
+//                current = current.left;
 //            }
-//            root = stack.pop();
-//            // 如果中序遍历得到的节点的值小于等于前一个 inorder，说明不是二叉搜索树
-//            if (root.val <= inorder) return false;
-//            inorder = root.val;
-//            root = root.right;
+//            current = treeNodes.pollLast();
+//            if (current.val <= prevVal){
+//                return false;
+//            }
+//            prevVal = Long.valueOf(current.val);
+//            current = current.right;
 //        }
 //        return true;
-
-        //
 //
+//
+////        Stack<TreeNode> stack = new Stack();
+////        double inorder = - Double.MAX_VALUE;
 ////
-//        if (root == null) return true;
+////        while (!stack.isEmpty() || root != null) {
+////            while (root != null) {
+////                stack.push(root);
+////                root = root.left;
+////            }
+////            root = stack.pop();
+////            // 如果中序遍历得到的节点的值小于等于前一个 inorder，说明不是二叉搜索树
+////            if (root.val <= inorder) return false;
+////            inorder = root.val;
+////            root = root.right;
+////        }
+////        return true;
 //
-//        boolean validBST = isValidBST(root.left);
-//        if (!validBST){
-//            return false;
-//        }
-//        if(root.val <= prevVal){
-//            return false;
-//        }
-//        prevVal = Long.valueOf(root.val);
-//       return isValidBST(root.right);
-    }
-    public void read(TreeNode root) {
-        read(root.left);
-        System.out.println(root.val);
-        read(root.right);
-
-    }
+//        //
+////
+//////
+////        if (root == null) return true;
+////
+////        boolean validBST = isValidBST(root.left);
+////        if (!validBST){
+////            return false;
+////        }
+////        if(root.val <= prevVal){
+////            return false;
+////        }
+////        prevVal = Long.valueOf(root.val);
+////       return isValidBST(root.right);
+//    }
+//    public void read(TreeNode root) {
+//        read(root.left);
+//        System.out.println(root.val);
+//        read(root.right);
+//
+//    }
 }
  public class TreeNode {
      int val;
