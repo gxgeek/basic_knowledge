@@ -66,23 +66,17 @@ public class GX_120_Triangle{
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
 
-        int[][]dp = new int[triangle.size()][];
-        for (int i=0;i<triangle.size();i++){
-            for (int j=0;j<triangle.get(i).size();j++){
-                if(dp[i] == null){
-                    dp[i] = new int[triangle.get(i).size()];
-                }
-                dp[i][j] = triangle.get(i).get(j);
+        if (triangle.size() == 0 || triangle.get(0).size() == 0) {
+            return 0;
+        }
+        int[] dp = new int[triangle.size()];
+        for (int i = triangle.size()-1; i>=0; i--) {
+            for (int j = 0; j>=triangle.get(i).size()-1; j++) {
+                if (i == triangle.size() -1) dp[j] = triangle.get(i).get(j);
+                else dp[j] = Math.min(dp[j],dp[j+1]) + triangle.get(i).get(j);
             }
         }
-
-
-        for(int i = dp.length-2;i>=0;i--){
-            for (int j=dp[i].length-1;j>=0;j--){
-                dp[i][j] = Math.min(dp[i+1][j],dp[i+1][j+1])+dp[i][j];
-            }
-        }
-        return dp[0][0];
+        return dp[0];
 
     }
 }

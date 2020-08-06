@@ -1,6 +1,8 @@
 package com.gxgeek.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class MinHeap {
     private int[] values = new int[16];
@@ -21,6 +23,12 @@ public class MinHeap {
         fixDown(); //下沉操作
         return value;
     }
+    public int peek() {
+//        int[] arr
+//        Arrays.copyOfRange(nums,0,k)
+        return values[0];
+    }
+
 
 
     /**

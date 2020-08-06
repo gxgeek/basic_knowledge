@@ -60,18 +60,32 @@ public class GX_88_MergeSortedArray{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
         public void merge(int[] nums1, int m, int[] nums2, int n) {
-            int nums1End = m-1;
-            int nums2End = n-1;
-            int totalEnd = m+n-1;
-            while(nums1End>=0&&nums2End >=0){
-                if(nums1[nums1End]> nums2[nums2End]){
-                    nums1[totalEnd--] = nums1[nums1End--];
-                }else{
-                    nums1[totalEnd--] = nums2[nums2End--];
+//            int nums1End = m-1;
+//            int nums2End = n-1;
+//            int totalEnd = m+n-1;
+//            while(nums1End>=0&&nums2End >=0){
+//                if(nums1[nums1End]> nums2[nums2End]){
+//                    nums1[totalEnd--] = nums1[nums1End--];
+//                }else{
+//                    nums1[totalEnd--] = nums2[nums2End--];
+//                }
+//            }
+//            if(nums2End>=0){
+//                nums1[totalEnd--] = nums2[nums2End--];
+//            }
+//
+            int t1 = m-1;
+            int t2 = n-1;
+            int total = m+n -1;
+            while(t1 >= 0 && t2>=0){
+                if(nums1[t1] > nums2[t2]){
+                    nums1[total--] = nums1[t1--];
+                } else {
+                    nums1[total--] = nums2[t2--];
                 }
             }
-            if(nums2End>=0){
-                nums1[totalEnd--] = nums2[nums2End--];
+            if(t2>=0){
+                nums1[total--] = nums2[t2--];
             }
 
         }
