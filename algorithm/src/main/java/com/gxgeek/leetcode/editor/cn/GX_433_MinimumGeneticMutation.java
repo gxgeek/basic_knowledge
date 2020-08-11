@@ -110,53 +110,102 @@ public class GX_433_MinimumGeneticMutation{
     public static void main(String[] args) {
         Solution solution = new GX_433_MinimumGeneticMutation().new Solution();
         // TO TEST
+        solution.minMutation("AACCGGTT",
+                "AACCGGTA",
+                new String[]{"AACCGGTA"});
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int minMutation(String start, String end, String[] bank) {
-        if (bank.length == 0){
-            return -1;
+        Set<String> bankSet = new HashSet<>();
+        for (String ban : bank){
+            bankSet.add(ban);
         }
-        Set<String> baseSet = new HashSet<>(Arrays.asList(bank));
-        Set<Character> changeSet = new HashSet<>();
-        changeSet.add('A');
-        changeSet.add('C');
-        changeSet.add('G');
-        changeSet.add('T');
+        if (bankSet.isEmpty() || !bankSet.contains(end)) return -1;
+        char[] baseChange = new char[]{'A','C','G','T'};
+        int count = 0;
 
+        HashSet<String> startSet = new HashSet<>();
+        HashSet<String> visited = new HashSet<>();
+        HashSet<String> endSet = new HashSet<>();
+        startSet.add(start);
+        visited.add(start);
+        endSet.add(end);
+        while(startSet.isEmpty() || endSet.isEmpty()) {
+            if(startSet.size() > endSet.size()) {
+                HashSet<String> temp  = new HashSet<>();
+                temp = startSet;
+                startSet = endSet;
+                endSet = temp;
+            }
+            HashSet<String> currentSet = new HashSet<>();
 
-        Set<String> visitSet = new HashSet<>();
-        LinkedList<String> linkedList = new LinkedList<>();
-        linkedList.addLast(start);
-        visitSet.add(start);
-
-        Integer count = 0;
-        while(!linkedList.isEmpty()){
-            int size = linkedList.size();
-            for (int i = 0; i < size; i++) {
-                String originStr = linkedList.pollFirst();
-                if (originStr.equals(end)){
-                    return count;
-                }
-                for (int i1 = 0; i1 < originStr.length(); i1++) {
-                    char[] chars = originStr.toCharArray();
-//                    char originC = originStr.charAt(i1);
-                    for (Character character : changeSet) {
-                        chars[i1] = character;
-                        String newStr = new String(chars);
-                        if (baseSet.contains(newStr) && !visitSet.contains(newStr)){
-                            visitSet.add(newStr);
-                            linkedList.addLast(newStr);
+            for (String s : startSet) {
+                char[] originStrChars = s.toCharArray();
+                for (int i = 0; i < originStrChars.length; i++) {
+                    char originchar = originStrChars[i];
+                    for (char change : baseChange) {
+                        originStrChars[i] = change;
+                        String changeStr = new String(originStrChars);
+                        if (endSet.contains(changeStr)) return count;
+                        if (bankSet.contains(changeStr) && !visited.contains(changeStr)){
+                            visited.add(changeStr);
+                            currentSet.add(changeStr);
                         }
                     }
-//                    chars[i1] = originC;
+                    originStrChars[i] = originchar;
                 }
             }
             count++;
+            startSet = currentSet;
         }
-        return  -1;
+        return -1;
 
     }
+//    public int minMutation(String start, String end, String[] bank) {
+//        if (bank.length == 0){
+//            return -1;
+//        }
+//        Set<String> baseSet = new HashSet<>(Arrays.asList(bank));
+//        Set<Character> changeSet = new HashSet<>();
+//        changeSet.add('A');
+//        changeSet.add('C');
+//        changeSet.add('G');
+//        changeSet.add('T');
+//
+//
+//        Set<String> visitSet = new HashSet<>();
+//        LinkedList<String> linkedList = new LinkedList<>();
+//        linkedList.addLast(start);
+//        visitSet.add(start);
+//
+//        Integer count = 0;
+//        while(!linkedList.isEmpty()){
+//            int size = linkedList.size();
+//            for (int i = 0; i < size; i++) {
+//                String originStr = linkedList.pollFirst();
+//                if (originStr.equals(end)){
+//                    return count;
+//                }
+//                for (int i1 = 0; i1 < originStr.length(); i1++) {
+//                    char[] chars = originStr.toCharArray();
+////                    char originC = originStr.charAt(i1);
+//                    for (Character character : changeSet) {
+//                        chars[i1] = character;
+//                        String newStr = new String(chars);
+//                        if (baseSet.contains(newStr) && !visitSet.contains(newStr)){
+//                            visitSet.add(newStr);
+//                            linkedList.addLast(newStr);
+//                        }
+//                    }
+////                    chars[i1] = originC;
+//                }
+//            }
+//            count++;
+//        }
+//        return  -1;
+//
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

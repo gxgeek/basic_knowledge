@@ -87,32 +87,28 @@ import java.util.Stack;
 public class GX_239_SlidingWindowMaximum{
     public static void main(String[] args) {
         Solution solution = new GX_239_SlidingWindowMaximum().new Solution();
-        // TO TEST
+        // TO TESTs
+        solution.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7},
+                3);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int[] res = new int[nums.length-k+1];
-
-        LinkedList<Integer> list = new LinkedList<>();
-
-        int index =0;
-        for(int i = 0; i < nums.length;i++){
-            //删除掉最前面的
-            while(!list.isEmpty() &&  list.peekFirst()<i-k+1){
-                list.pollFirst();
+        int index = 0;
+        int[] res = new int[nums.length - k +1];
+        LinkedList<Integer> deque = new LinkedList<>();
+        for (int i =0 ; i< nums.length; i++) {
+            while(!deque.isEmpty() && deque.peekFirst() < i-k+1){
+                deque.pollFirst();
             }
-            while(!list.isEmpty() && nums[i]>nums[list.peekLast()]){
-                list.pollLast();
+            while(!deque.isEmpty() && nums[deque.peekLast()] < nums[i]){
+                deque.pollLast();
             }
-            list.addLast(i);
-
-            if(i-k+1>=0){
-                res[index++] = nums[list.peekFirst()];
+            deque.push(i);
+            if(i-k+1 >= 0){
+                res[index++] = nums[deque.peekFirst()];
             }
-
-
         }
         return res;
     }

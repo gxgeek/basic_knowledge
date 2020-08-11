@@ -54,18 +54,45 @@ package com.gxgeek.leetcode.editor.cn;
 // 注意：本题与主站 239 题相同：https://leetcode-cn.com/problems/sliding-window-maximum/ 
 // Related Topics 队列 Sliding Window 
 // 👍 82 👎 0
-	
+
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+
 public class GX_剑指Offer59_I_HuaDongChuangKouDeZuiDaZhiLcof{
     public static void main(String[] args) {
         Solution solution = new GX_剑指Offer59_I_HuaDongChuangKouDeZuiDaZhiLcof().new Solution();
         // TO TEST
+        solution.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7},
+                3);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int[] maxSlidingWindow(int[] nums, int k) {
 
+
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        List list = new ArrayList();
+        int[] res = new int[nums.length - k +1];
+        int index =0;
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i < nums.length; i ++) {
+            if(!deque.isEmpty() && deque.peekFirst() < i-k+1){
+                deque.pollFirst();
+            }
+            if (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]){
+                deque.pollLast();
+            }
+            deque.addLast(i);
+            if (i-k+1 >=0){
+                res[index++] = nums[deque.peekFirst()];
+            }
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
+
 
 }

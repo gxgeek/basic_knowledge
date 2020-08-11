@@ -46,7 +46,9 @@ package com.gxgeek.leetcode.editor.cn;
 //输出: [1,2,2,3,5,6] 
 // Related Topics 数组 双指针 
 // 👍 562 👎 0
-	
+
+import java.util.Arrays;
+
 public class GX_88_MergeSortedArray{
     public static void main(String[] args) {
         Solution solution = new GX_88_MergeSortedArray().new Solution();
@@ -55,7 +57,7 @@ public class GX_88_MergeSortedArray{
 //        3
 //                [1,2,3]
 //        3
-        solution.merge(new int[]{4, 5, 6, 0, 0, 0}, 3, new int[]{1, 2, 3}, 3);
+        solution.merge(new int[]{1,2,3, 0, 0, 0}, 3, new int[]{2, 5, 6}, 3);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
@@ -74,19 +76,33 @@ class Solution {
 //                nums1[totalEnd--] = nums2[nums2End--];
 //            }
 //
-            int t1 = m-1;
-            int t2 = n-1;
-            int total = m+n -1;
-            while(t1 >= 0 && t2>=0){
-                if(nums1[t1] > nums2[t2]){
-                    nums1[total--] = nums1[t1--];
-                } else {
-                    nums1[total--] = nums2[t2--];
-                }
+//            int t1 = m-1;
+//            int t2 = n-1;
+//            int total = m+n -1;
+//            while(t1 >= 0 && t2>=0){
+//                if(nums1[t1] > nums2[t2]){
+//                    nums1[total--] = nums1[t1--];
+//                } else {
+//                    nums1[total--] = nums2[t2--];
+//                }
+//            }
+//            if(t2>=0){
+//                nums1[total--] = nums2[t2--];
+//            }
+
+
+            int total = m + n -1;
+            int num1Index = m - 1;
+            int nums2Index = n - 1;
+            if (num1Index >= 0 && nums2Index >=0){
+                if (nums1[num1Index] > nums2[nums2Index])nums1[total--]=nums1[num1Index--];
+                else nums1[total--]=nums2[nums2Index--];
             }
-            if(t2>=0){
-                nums1[total--] = nums2[t2--];
+
+            while (nums2Index >= 0){
+                nums1[total--]=nums2[nums2Index--];
             }
+
 
         }
 }

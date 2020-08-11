@@ -45,10 +45,25 @@ public class GX_45_JumpGameIi{
     public static void main(String[] args) {
         Solution solution = new GX_45_JumpGameIi().new Solution();
         // TO TEST
+//        solution.jump(new int[]{2, 3, 1, 1, 4});
+        isPalindrome("race a car");
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int jump(int[] nums) {
+//        int j = nums.length-2;
+//
+//        int min = nums.length-1;
+//        int count = 0;
+//        while (j >= 0){
+//            while (j >= 0 && nums[j] + j  >=  min){
+//                j--;
+//            }
+//            count++;
+//        }
+//        return j <= 0 ?count:-1;
+//
+
 
 //        int step = 0;
 //
@@ -80,5 +95,50 @@ class Solution {
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+    public static boolean isPalindrome(String s) {
+        char[] chars = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (char c : chars){
+            if (c >= '0' && c <= '9'){
+                sb.append(c);
+            }else if (c >= 'A' && c <= 'Z'){
+                sb.append((char)(c+32));
+            }else if (c >= 'a' && c <= 'z'){
+                sb.append(c);
+            }
+        }
+        return sb.reverse().toString().equals(sb.toString());
+    }
+
+
+    public int maxProfit(int[] prices) {
+
+        int k =2;
+        int[][][] int0 = new int[prices.length + 1][k+1][2];
+        int[][][] int1 = new int[prices.length + 1][k+1][2];
+
+
+        for (int i = 0; i <= prices.length; i++) {
+            for (int j = 0; j <=k ; j++) {
+                if (i == 0){
+                    int0[i][j][0] = 0;
+                    int1[i][j][1] = Integer.MIN_VALUE;
+
+                }else if (j == 0){
+                    int0[i][j][0] = 0;
+                    int1[i][j][1] = Integer.MIN_VALUE;
+                }
+                else{
+                    int0[i][j][0] = Math.max(int0[i-1][j][0],int0[i-1][j-1][1] + prices[i-1]);
+                    int1[i][j][1] = Math.max(int0[i-1][j][1],int0[i-1][j-1][0] - prices[i-1]);
+                }
+            }
+        }
+        return int0[prices.length][k][0];
+
+    }
+
 
 }

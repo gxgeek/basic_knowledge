@@ -109,53 +109,97 @@ public class GX_126_WordLadderIi {
     class Solution {
         public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
             List<List<String>> res = new ArrayList<>();
-            if (wordList == null || wordList.size() == 0 || !wordList.contains(endWord)) {
-                return res;
-            }
             Set<String> wordSet = new HashSet<>(wordList);
+            if (wordSet.isEmpty() || !wordSet.contains(endWord)) return res;
 
-
-            Set<String> visitList = new HashSet<>();
-            LinkedList<List<String>> linkedList = new LinkedList<>();
-            visitList.add(beginWord);
-            linkedList.addLast(Arrays.asList(beginWord));
+            LinkedList<List<String>> deque = new LinkedList<>();
+            Set<String> visited = new HashSet<>();
+            visited.add(endWord);
+            List<String> list = new ArrayList<>();
+            list.add(beginWord);
+            deque.add(list);
             boolean falg = true;
-
-            while (!linkedList.isEmpty() && falg) {
-                int size = linkedList.size();
-                // 该层添加的所有元素：每层必须在所有结果都添加完新的单词之后，再将这些单词统一添加到已使用单词集合
-                // 如果直接添加到 visited 中，会导致该层本次结果添加之后的相同添加行为失败
-                // 如：该层遇到目标单词，有两条路径都可以遇到，但是先到达的将该单词添加进 visited 中，会导致第二条路径无法添加
-                Set<String> subVisit = new HashSet(visitList);
+            while(!deque.isEmpty() && falg) {
+                Set<String> subVisited = new HashSet<>();
+                int size = deque.size();
                 while (size-- > 0) {
-                    List<String> popList = linkedList.pop();
-                    String popStr = popList.get(popList.size() - 1);
-                    char[] popStrChars = popStr.toCharArray();
-                    for (int i = 0; i < popStrChars.length; i++) {
-                        char temp = popStrChars[i];
-                        for (char ch = 'a'; ch <= 'z'; ch++) {
-                            popStrChars[i] = ch;
-                            String changeStr = new String(popStrChars);
-                            if (wordSet.contains(changeStr) && !visitList.contains(changeStr)) {
-                                ArrayList<String> newPopList = new ArrayList<>(popList);
-                                newPopList.add(changeStr);
-                                if (changeStr.equals(endWord)) {
-                                    res.add(newPopList);
+                    List<String> popList =  deque.pop();
+                    String popStr = popList.get(popList.size()-1);
+                    char[] popChars = popStr.toCharArray();
+                    for (int i = 0; i < popChars.length; i++) {
+                        char originC = popChars[i];
+                        for (char changeC = 'a' ; changeC <= 'z'; changeC++){
+                            popChars[i] = changeC;
+                            String changeStr = new String(popChars);
+                            if (wordSet.contains(changeStr) && !visited.contains(changeStr)){
+                                if (changeStr.equals(endWord)){
+                                    popList.add(endWord);
+                                    res.add(popList);
                                     falg = false;
+                                }else{
+                                    popList.add(endWord);
+                                    deque.add(popList);
                                 }
-                                linkedList.addLast(newPopList);
-                                subVisit.add(changeStr);
+                                subVisited.add(changeStr);
                             }
                         }
-                        popStrChars[i] = temp;
+                        popChars[i] = originC;
                     }
-
                 }
-                visitList.addAll(subVisit);
+                visited.addAll(subVisited);
             }
             return res;
 
         }
+//        public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+//            List<List<String>> res = new ArrayList<>();
+//            if (wordList == null || wordList.size() == 0 || !wordList.contains(endWord)) {
+//                return res;
+//            }
+//            Set<String> wordSet = new HashSet<>(wordList);
+//
+//
+//            Set<String> visitList = new HashSet<>();
+//            LinkedList<List<String>> linkedList = new LinkedList<>();
+//            visitList.add(beginWord);
+//            linkedList.addLast(Arrays.asList(beginWord));
+//            boolean falg = true;
+//
+//            while (!linkedList.isEmpty() && falg) {
+//                int size = linkedList.size();
+//                // 该层添加的所有元素：每层必须在所有结果都添加完新的单词之后，再将这些单词统一添加到已使用单词集合
+//                // 如果直接添加到 visited 中，会导致该层本次结果添加之后的相同添加行为失败
+//                // 如：该层遇到目标单词，有两条路径都可以遇到，但是先到达的将该单词添加进 visited 中，会导致第二条路径无法添加
+//                Set<String> subVisit = new HashSet(visitList);
+//                while (size-- > 0) {
+//                    List<String> popList = linkedList.pop();
+//                    String popStr = popList.get(popList.size() - 1);
+//                    char[] popStrChars = popStr.toCharArray();
+//                    for (int i = 0; i < popStrChars.length; i++) {
+//                        char temp = popStrChars[i];
+//                        for (char ch = 'a'; ch <= 'z'; ch++) {
+//                            popStrChars[i] = ch;
+//                            String changeStr = new String(popStrChars);
+//                            if (wordSet.contains(changeStr) && !visitList.contains(changeStr)) {
+//                                ArrayList<String> newPopList = new ArrayList<>(popList);
+//                                newPopList.add(changeStr);
+//                                if (changeStr.equals(endWord)) {
+//                                    res.add(newPopList);
+//                                    falg = false;
+//                                }
+//                                linkedList.addLast(newPopList);
+//                                subVisit.add(changeStr);
+//                            }
+//                        }
+//                        popStrChars[i] = temp;
+//                    }
+//
+//                }
+//                visitList.addAll(subVisit);
+//            }
+//            return res;
+//
+//        }
     }
     //leetcode submit region end(Prohibit modification and deletion)
 

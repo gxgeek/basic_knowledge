@@ -36,7 +36,10 @@ package com.gxgeek.leetcode.editor.cn;
 // 
 // Related Topics 数组 哈希表 
 // 👍 526 👎 0
-	
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class GX_560_SubarraySumEqualsK{
     public static void main(String[] args) {
         Solution solution = new GX_560_SubarraySumEqualsK().new Solution();
@@ -45,23 +48,24 @@ public class GX_560_SubarraySumEqualsK{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-        int needSum;
-        int res = 0;
+//        int res = 0;
+
         public int subarraySum(int[] nums, int k) {
-            needSum = k;
-            dfs(nums,0,0);
+            int prevSum = 0;
+            int res = 0;
+            Map<Integer, Integer> prevMap = new HashMap<>();
+            prevMap.put(0, 1);
+            for (int i = 0; i < nums.length ; i++) {
+                prevSum += nums[i];
+                if (prevMap.containsKey(prevSum - k)){
+                    res += prevMap.get(prevSum - k);
+                }
+                prevMap.put(prevSum, prevMap.getOrDefault(prevSum, 0)+1);
+            }
             return res;
         }
 
-        void dfs(int[] nums,int start,int currentValue){
-            if (currentValue == needSum) res++;
-            if (start >= nums.length) return;
-
-            for (int i = start;i < nums.length; i++) {
-                dfs(nums,start+1,currentValue + nums[i]);
-            }
-        }
-}
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

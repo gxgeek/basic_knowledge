@@ -130,34 +130,10 @@ public class GX_36_ValidSudoku{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public boolean isValidSudoku(char[][] board) {
-        boolean[][] row = new boolean[10][10];
-        boolean[][] col = new boolean[10][10];
-        boolean[][] x = new boolean[10][10];
-
-        for (int i =0;i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == '.') continue;
-                int value = '0'+board[i][j];
-                if(row[i][value] || col[j][value] || x[getXIndex(i,j)][value]){
-                    return false;
-                }
-                row[i][value] = true;
-                col[j][value] = true;
-                x[getXIndex(i, j)][value] = true;
-            }
-        }
-        return true;
-
-
-    }
 
 
 
     }
 //leetcode submit region end(Prohibit modification and deletion)
-public static int getXIndex(int i,int j){
-    return (i/3)*3 + j/3;
-}
 
 }
