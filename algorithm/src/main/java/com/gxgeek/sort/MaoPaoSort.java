@@ -1,5 +1,7 @@
 package com.gxgeek.sort;
 
+import java.util.Collections;
+
 public class MaoPaoSort {
 
     public static void main(String[] args) {
@@ -11,14 +13,21 @@ public class MaoPaoSort {
     }
 
     public static void maopao(int[] sortNum){
-        for (int i = 0; i < sortNum.length-1; i++) {
-            for (int j = 0; j < sortNum.length-i-1; j++) {
-                if (sortNum[j]>sortNum[j+1]){
-                    int t = sortNum[j];
-                    sortNum[j] = sortNum[j+1];
-                    sortNum[j + 1] = t;
+        for (int i = 0; i< sortNum.length - 1; i++){
+            for (int j = 0; j < sortNum.length -i -1; j++){
+                if (sortNum[j] > sortNum[j+1]){
+                    int t =  sortNum[j]; sortNum[j] = sortNum[j+1];sortNum[j+1] = t;
                 }
             }
         }
+        //        for (int i = 0; i < sortNum.length-1; i++) {
+//            for (int j = 0; j < sortNum.length-i-1; j++) {
+//                if (sortNum[j]>sortNum[j+1]){
+//                    int t = sortNum[j];
+//                    sortNum[j] = sortNum[j+1];
+//                    sortNum[j + 1] = t;
+//                }
+//            }
+//        }
     }
 }
