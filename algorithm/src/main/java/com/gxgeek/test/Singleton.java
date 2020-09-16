@@ -1,27 +1,25 @@
 package com.gxgeek.test;
 
-import java.util.LinkedList;
-
 public class Singleton {
 
-    private volatile static Singleton SINGLETON;
+    private volatile static com.gxgeek.test.sub.Singleton SINGLETON;
 
 
-    public static Singleton get(){
+    public static com.gxgeek.test.sub.Singleton get(){
         if (SINGLETON == null){
-            synchronized (Singleton.class){
+            synchronized (com.gxgeek.test.sub.Singleton.class){
                 if (SINGLETON == null){
-                    SINGLETON = new Singleton();
+                    SINGLETON = new com.gxgeek.test.sub.Singleton();
                 }
             }
         }
         return SINGLETON;
     }
-    public static Singleton get1(){
+    public static com.gxgeek.test.sub.Singleton get1(){
         return SingletonHolder.singleton;
     }
 
     private static class SingletonHolder{
-        private static  final Singleton singleton = new Singleton();
+        private static  final com.gxgeek.test.sub.Singleton singleton = new com.gxgeek.test.sub.Singleton();
     }
 }
